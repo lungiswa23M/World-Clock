@@ -81,13 +81,14 @@
         World Clock
     </h1>
 
-    <select>
+    <select id="city"> 
         <option value="">Select a city</option>
-        <option value="">Brisbane</option>
-        <option value="">Cape Town</option>
-        <option value="">Paris</option>
+        <option value="Australia/Brisbane">Brisbane</option>
+        <option value="Africa/Cape_Town">Cape Town</option>
+        <option value="Europe/Paris">Paris</option>
     </select>
 
+    <div id="cities">
     <div class="city" id="new-york">
         <div>
         <h2>New York</h2>
@@ -111,6 +112,8 @@
         </div>
         <div class="time"></div>
     </div>
+    </div>
+
     </div>
 
     <script>
@@ -146,6 +149,23 @@
         romeTimeElement.innerHTML = `${romeTime.format("h:mm:ss")} 
         <small>${romeTime.format("a")}</small>`;
         }, 1000);
+
+        function updateCity(event) {
+            let cityTimeZone = event.target.value;
+            let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+            let cityTime = moment().tz(cityTimeZone);
+            let citiesElement = document.querySelector("#cities");
+            citiesElement.innerHTML = `<div class="city">
+                <div>
+                  <h2>${cityName}</h2>
+                  <div class="data">${cityTime.format("MMMM Do YYYY")}</div>
+                </div>
+                <div class="time">${cityTime.format("h:mm:ss")} 
+                <small>${cityTime.format("A")}</small></div>
+                </div>`;
+        }
+        let citiesSelectElement = document.querySelector("#city");
+        citiesSelectElement.addEventListener("change", updateCity);
     </script>
 </body>
 <footer>
