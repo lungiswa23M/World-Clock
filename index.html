@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.45/moment-timezone-with-data-1970-2030.js"></script>
     <title>World Clock- Lungiswa Mgeyi</title>
     <style>
         body{
             background-color: #f9f7fe;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 40px;
         }
         .container{
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
             padding: 40px;
             background: white;
@@ -35,6 +38,12 @@
             font-weight: bold;
         }
 
+        .date {
+            font-family: sans-serif;
+            color: rgba(0, 0, 0, 0.4);
+            font-weight: 500;
+        }
+
         .time small{
             font-size: 15px;
             vertical-align: middle;
@@ -46,6 +55,8 @@
             border-radius: 5px;
             width: 100%;
             padding: 10px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.4);
         }
 
         h1{
@@ -59,7 +70,8 @@
 
         footer{
             text-align: center;
-            padding: 20px;
+            color: rgba(0, 0, 0, 0.6);
+            padding: 40px;
         }
     </style>
 </head>
@@ -76,30 +88,65 @@
         <option value="">Paris</option>
     </select>
 
-    <div class="city">
+    <div class="city" id="new-york">
         <div>
         <h2>New York</h2>
-        <div class="date">August 17th 2024</div>
+        <div class="date"></div>
         </div>
-        <div class="time">12:21:07 <small>PM</small></div>
+        <div class="time"></div>
     </div>
 
-     <div class="city">
+     <div class="city" id="tokyo">
         <div>
         <h2>Tokyo</h2>
-        <div class="date">August 17th 2024</div>
+        <div class="date"></div>
         </div>
-        <div class="time">12:21:07 <small>PM</small></div>
+        <div class="time"></div>
     </div>
 
-     <div class="city">
+     <div class="city" id="rome">
         <div>
         <h2>Rome</h2>
-        <div class="date">August 17th 2024</div>
+        <div class="date"></div>
         </div>
-        <div class="time">12:21:07 <small>PM</small></div>
+        <div class="time"></div>
     </div>
     </div>
+
+    <script>
+        setInterval(function (){
+        let newYorkElement = document.querySelector("#new-york");
+        let newYorkDateElement = newYorkElement.querySelector(".date");
+        let newYorkTimeElement = newYorkElement.querySelector(".time");
+        let newYorkTime = moment().tz("America/New_York");
+
+        newYorkDateElement.innerHTML = newYorkTime.format("MMMM Do YYYY");
+        newYorkTimeElement.innerHTML = `${newYorkTime.format("h:mm:ss")} 
+        <small>${newYorkTime.format("a")}</small>`;
+        }, 1000);
+
+        setInterval(function (){
+        let tokyoElement = document.querySelector("#tokyo");
+        let tokyoDateElement = tokyoElement.querySelector(".date");
+        let tokyoTimeElement = tokyoElement.querySelector(".time");
+        let tokyoTime = moment().tz("Asia/Tokyo");
+
+        tokyoDateElement.innerHTML = tokyoTime.format("MMMM Do YYYY");
+        tokyoTimeElement.innerHTML = `${tokyoTime.format("h:mm:ss")} 
+        <small>${tokyoTime.format("a")}</small>`;
+        }, 1000);
+
+        setInterval(function (){
+        let romeElement = document.querySelector("#rome");
+        let romeDateElement = romeElement.querySelector(".date");
+        let romeTimeElement = romeElement.querySelector(".time");
+        let romeTime = moment().tz("Europe/Rome");
+
+        romeDateElement.innerHTML = romeTime.format("MMMM Do YYYY");
+        romeTimeElement.innerHTML = `${romeTime.format("h:mm:ss")} 
+        <small>${romeTime.format("a")}</small>`;
+        }, 1000);
+    </script>
 </body>
 <footer>
         This was coded with ❤️ by <a href="#" target="_blank"> Lungiswa Mgeyi</a> 
